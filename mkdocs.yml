@@ -1,6 +1,6 @@
 # Project information
 site_name: BaiduSpider
-site_url: https://samzhangjy.github.io/BaiduSpider/
+site_url: https://baiduspider.github.io/
 site_author: Sam Zhang
 site_description: >-
   BaiduSpider能够精准地爬取百度搜索结果，但更强大，更轻量，更易用。它目前已经支持了8种搜索结果，
