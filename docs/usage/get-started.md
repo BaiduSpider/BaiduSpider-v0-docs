@@ -7,17 +7,27 @@ BaiduSpider是一个用Python的requests库编写的网络爬虫，可以爬取�
 
 
 ## 安装
-BaiduSpider目前还没有发布PyPi包，暂时仅提供GitHub下载。你可以访问[GitHub仓库](https://github.com/samzhangjy/BaiduSpider)来下载zip压缩包，或者直接clone：
+你可以直接从Python包管理器`pip`下载BaiduSpider：
 
 ```bash
-$ git clone https://github.com/samzhangjy/BaiduSpider.git
+$ pip install baiduspider
+```
+
+或者你想要体验最新的功能，可以使用`git`下载并安装：
+
+```bash
+$ git clone https://github.com/BaiduSpider/BaiduSpider.git
+
+# ...
+
+$ python setup.py install
 ```
 
 ## 简单使用
 安装好了之后，打开BaiduSpider所在的文件夹，创建一个Python文件，输入下面的代码：
 
 ```python hl_lines="5"
-from baiduspider.core import BaiduSpider  # 导入BaiduSpider
+from baiduspider import BaiduSpider  # 导入BaiduSpider
 from pprint import pprint  # 导入pretty-print
 
 # 获取百度的搜索结果，搜索关键词是'爬虫'

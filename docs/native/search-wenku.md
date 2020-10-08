@@ -18,8 +18,8 @@ BaiduSpider.search_wenku(self: BaiduSpider, query: str, pn: int = 1) -> dict
 
 #### 基本的调用
 
-```python
-from baiduspider.core import BaiduSpider
+```python hl_lines="7"
+from baiduspider import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
@@ -30,8 +30,8 @@ pprint(spider.search_wenku(query=input('文库搜索关键词：')))
 
 #### 指定页码
 
-```python
-from baiduspider.core import BaiduSpider
+```python hl_lines="7"
+from baiduspider import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()

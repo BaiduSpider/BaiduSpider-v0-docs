@@ -18,9 +18,9 @@ BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict
 
 #### 基本的调用
 
-```python
+```python hl_lines="9"
 # 导入BaiduSpider
-from baiduspider.core import BaiduSpider
+from baiduspider import BaiduSpider
 from pprint import pprint
 
 # 实例化BaiduSpider
@@ -32,8 +32,8 @@ pprint(spider.search_web(query=input('要搜索的关键词：')))
 
 #### 指定页码
 
-```python
-from baiduspider.core import BaiduSpider
+```python hl_lines="7"
+from baiduspider import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
