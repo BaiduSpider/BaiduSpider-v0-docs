@@ -123,6 +123,31 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 
 在返回值中，有两个键，分别是`results`和`total`。其中，`total`表示总计搜索结果的页数，并且可能会因为当前页数的变化而随之变化，值类型为`int`。`results`代表搜索结果列表，类型为`list`。下面是列表中各个值的详细解释。
 
+### 普通的搜索结果
+
+该项的分类为`result`，模型如下：
+
+```python
+{
+    'des': str,
+    'origin': str,
+    'title': str,
+    'type': 'result',
+    'url': str
+}
+```
+
+#### 解释
+
+- `des`：搜索结果简介，类型为`str`
+- `origin`：搜索结果来源，类型为`str`
+- `title`：搜索结果标题，类型为`str`
+- `type`：该项表示该结果的类别，值为`result`，类型是`str`
+- `url`：搜索结果链接，类型为`str`
+
+!!!note
+    普通搜索结果没有一个父字典包围着，它的父字典就是返回值中的`results`字典
+
 ### 结果数量
 
 该项的分类为`total`，模型如下：
@@ -176,7 +201,8 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 !!!warning
     本项搜索结果仅在搜索词参与运算时出现，请谨慎调用
 
-### 相关新闻
+
+### 相关新闻 ^BETA^
 
 该项的分类为`news`，模型如下：
 
@@ -206,7 +232,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 !!!warning
     本项搜索结果仅在搜索词有相关新闻时出现，请谨慎调用
 
-### 相关视频
+### 相关视频 ^BETA^
 
 该项的分类为`video`，模型如下：
 
@@ -236,7 +262,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 !!!warning
     本项搜索结果仅在搜索词有相关视频时出现，请谨慎调用
 
-### 相关百科
+### 相关百科 ^BETA^
 
 该项的分类为`baike`，模型如下：
 
@@ -266,32 +292,47 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 !!!warning
     本项搜索结果仅在搜索词有相关百科时出现，请谨慎调用
 
-### 普通的搜索结果
+### 相关贴吧 ^ALPHA^
 
-该项的分类为`result`，模型如下：
+该项的分类为`tieba`，模型如下：
 
 ```python
 {
-    'des': str,
-    'origin': str,
-    'title': str,
-    'type': 'result',
-    'url': str
+    'result': {
+            'cover': str,
+            'des': str,
+            'title': str,
+            'url': str,
+            'followers': str,
+            'hot': [{
+                'clicks': str,
+                'replies': str,
+                'title': str,
+                'url': str
+            }],
+            'total': str
+    },
+    'type': 'tieba'
 }
 ```
 
 #### 解释
 
-- `des`：搜索结果简介，类型为`str`
-- `origin`：搜索结果来源，类型为`str`
-- `title`：搜索结果标题，类型为`str`
-- `type`：该项表示该结果的类别，值为`result`，类型是`str`
-- `url`：搜索结果链接，类型为`str`
-
-!!!note
-    普通搜索结果没有一个父字典包围着，它的父字典就是返回值中的`results`字典
+- `result`：表示贴吧结果字典，类型为`dict`
+    - `cover`：贴吧封面图片链接，类型为`str`
+    - `des`：贴吧简介，类型为`str`
+    - `title`：贴吧标题，类型为`str`
+    - `url`：贴吧链接，类型为`str`
+    - `followers`：贴吧关注人数（可能有汉字，如：1万），类型为`str`
+    - `hot`：贴吧热门帖子，类型为`list`
+        - `clicks`：帖子点击总数，类型为`str`
+        - `replies`：帖子回复总数，类型为`str`
+        - `title`：帖子标题，类型为`str`
+        - `url`：帖子链接，类型为`str`
+    - `total`：贴吧总帖子数（可能有汉字，如：17万），类型为`str`
+- `type`：该项表示该结果的类别，值为`tieba`，类型是`str`
 
 ## 提醒
 
 !!!warning
-    不要使用爬虫搜索大量信息（如每天一万条），这样可能导致被百度封锁IP地址。使用IP池即可解决该问题
+    不要使用爬虫搜索大量信息（如每天1000条），这样可能导致被百度封锁IP地址。使用IP池即可解决该问题

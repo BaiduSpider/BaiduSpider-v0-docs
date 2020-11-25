@@ -57,6 +57,9 @@ markdown_extensions:
   - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
   - markdown.extensions.toc:
       permalink: true
   - pymdownx.arithmatex:
@@ -94,13 +97,13 @@ nav:
   - 原生 Python:
     - 介绍: native/index.md
     - 网页搜索: native/search-web.md
-    - 图片搜索: native/search-pic.md
-    - 视频搜索: native/search-video.md
-    - 资讯搜索: native/search-news.md
-    - 文库搜索: native/search-wenku.md
-    - 经验搜索: native/search-jingyan.md
-    - 知道搜索: native/search-zhidao.md
-    - 百科搜索: native/search-baike.md
+    - 图片搜索 <sup><sup>BETA</sup></sup>: native/search-pic.md
+    - 视频搜索 <sup><sup>BETA</sup></sup>: native/search-video.md
+    - 资讯搜索 <sup><sup>BETA</sup></sup>: native/search-news.md
+    - 文库搜索 <sup><sup>BETA</sup></sup>: native/search-wenku.md
+    - 经验搜索 <sup><sup>ALPHA</sup></sup>: native/search-jingyan.md
+    - 知道搜索 <sup><sup>ALPHA</sup></sup>: native/search-zhidao.md
+    - 百科搜索 <sup><sup>ALPHA</sup></sup>: native/search-baike.md
   - Web UI:
     - 介绍: web/index.md
   - Web API:
