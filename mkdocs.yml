@@ -41,7 +41,7 @@ theme:
     text: Roboto
     code: Roboto Mono
   favicon: assets/favicon.png
-  icon: 
+  icon: assets/favicon.png
   logo: assets/logo.png
 
 # Plugins
@@ -110,6 +110,8 @@ nav:
     - 介绍: api/index.md
   - CLI:
     - 介绍: cli/index.md
+  - 生态:
+    - Made With BaiduSpider: ecosystem/madeWithBaiduSpider.md
 
 # Google Analytics
 google_analytics:
