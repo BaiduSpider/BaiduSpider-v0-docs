@@ -102,6 +102,41 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
             },
             'type': 'baike'
         },
+        # 相关贴吧，仅会在搜索词有相关贴吧时出现
+        {
+            'result': {
+                'cover': str,  # 贴吧封面图片链接
+                'des': str,  # 贴吧简介
+                'title': str,  # 贴吧标题
+                'url': str,  # 贴吧链接
+                'followers': str,  # 贴吧关注人数（可能有汉字，如：1万）
+                'hot': [{  # list, 热门帖子
+                    'clicks': str,  # 帖子点击总数
+                    'replies': str,  # 帖子回复总数
+                    'title': str,  # 帖子标题
+                    'url': str, #  帖子链接
+                }],
+                'total': str,  # 贴吧总帖子数（可能有汉字，如：17万）
+            },
+            'type': 'tieba'
+        },
+        # 相关博客，仅会在搜索词有相关博客时出现
+        {
+            'result': {
+                'blogs': [{  # list, 博客列表
+                    'des': str,  # 博客简介，没有时为`None`
+                    'origin': str,  # 博客来源
+                    'tags': [  # list, 博客标签
+                        str,  # 标签文字
+                    ],
+                    'title': str,  # 博客标题
+                    'url': str,  # 博客链接
+                }],
+                'title': str,  # 博客搜索标题
+                'url': str,  # 博客搜索链接 (https://kaifa.baidu.com)
+            },
+            'type': 'blog'
+        }
         # 普通的搜索结果
         {
             'des': str,  # 搜索结果简介
@@ -331,6 +366,42 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
         - `url`：帖子链接，类型为`str`
     - `total`：贴吧总帖子数（可能有汉字，如：17万），类型为`str`
 - `type`：该项表示该结果的类别，值为`tieba`，类型是`str`
+
+### 相关博客 ^ALPHA^
+
+该项的分类为`blog`，模型如下：
+
+```python
+{
+    'result': {
+        'blogs': [{
+            'des': str,
+            'origin': str,
+            'tags': [
+                str
+            ],
+            'title': str,
+            'url': str
+        }],
+        'title': str,
+        'url': str
+    },
+    'type': 'blog'
+}
+```
+
+#### 解释
+
+- `result`：表示博客结果字典，类型为`dict`
+    - `blogs`：表示博客列表，类型为`list`
+        - `des`：表示博客简介，没有时为`None`，类型为`str`
+        - `origin`：表示博客来源，类型为`str`
+        - `tags`：表示博客标签列表，类型为`list`
+            - `tags`<sub>`i`</sub>：表示一个博客标签，类型为`str`
+        - `title`：表示博客标题，类型为`str`
+        - `url`：表示博客链接，类型为`str`
+    - `title`：表示博客搜索标题，类型为`str`
+    - `url`：表示博客搜索链接 (<https://kaifa.baidu.com>)，类型为`str`
 
 ## 提醒
 
