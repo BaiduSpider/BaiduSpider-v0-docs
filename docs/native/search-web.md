@@ -3,7 +3,7 @@
 > 百度网页搜索，也可以作为综合搜索使用。
 
 ```python
-BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict
+BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1, exclude: list = []) -> dict
 ```
 
 ## 参数
@@ -13,6 +13,8 @@ BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict
 - query: str，要查询网页搜索的字符串
 
 - pn: int，要爬取的页码，默认为1，为可选参数
+
+- exclude: dict，要屏蔽的子部件列表，为可选参数
 
 ### 实例
 
@@ -44,6 +46,34 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 
 !!! warning
     传入页码参数的时候一定要小心，务必不要传入过大的页码，因为百度搜索会自动跳转回第一页
+
+#### 屏蔽特定的搜索结果
+
+```python hl_lines="8"
+from baiduspider import BaiduSpider
+from pprint import pprint
+
+spider = BaiduSpider()
+
+# 搜索网页，并传入要屏蔽的结果
+# 在本样例中，屏蔽了贴吧和博客
+pprint(spider.search_web(query=input('要搜索的关键词：'), exclude=['tieba', 'blog']))
+```
+
+`exclude`的值可以包含：`['news', 'video', 'baike', 'tieba', 'blog', 'gitee', 'related', 'calc']`，分别表示：资讯，视频，百科，贴吧，博客，Gitee代码仓库，相关搜索，计算。`exclude`的值也可以是`['all']`，表示屏蔽除了普通搜索结果外的所有搜索结果。实例：
+
+```python hl_lines="8"
+from baiduspider import BaiduSpider
+from pprint import pprint
+
+spider = BaiduSpider()
+
+# 搜索网页，并传入要屏蔽的结果
+# 在本样例中，屏蔽了所有非普通的搜索结果
+pprint(spider.search_web(query=input('要搜索的关键词：'), exclude=['all']))
+```
+
+如果`exclude`中包含`all`且还有其他参数，那么将按照只有`all`的方式过滤搜索结果。
 
 ## 返回值
 
@@ -136,7 +166,22 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
                 'url': str,  # 博客搜索链接 (https://kaifa.baidu.com)
             },
             'type': 'blog'
-        }
+        },
+        # 相关Gitee仓库，仅会在搜索词有相关Gitee仓库时出现
+        {
+            'result': {
+                'title': str,  # 仓库标题
+                'des': str,  # 仓库简介
+                'url': str,  # 仓库链接
+                'star': int,  # 仓库star数
+                'fork': int,  # 仓库fork数
+                'watch': int,  # 仓库watch数
+                'license': str,  # 仓库版权协议
+                'lang': str,  # 仓库使用的编程语言
+                'status': str,  # 仓库状态图表链接
+            },
+            'type': 'gitee'
+        },
         # 普通的搜索结果
         {
             'des': str,  # 搜索结果简介
@@ -403,7 +448,41 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
     - `title`：表示博客搜索标题，类型为`str`
     - `url`：表示博客搜索链接 (<https://kaifa.baidu.com>)，类型为`str`
 
+### 相关Gitee仓库 ^ALPHA^
+
+该项的分类为`gitee`，模型如下：
+
+```python
+{
+    'result': {
+        'title': str,
+        'des': str,
+        'url': str,
+        'star': int,
+        'fork': int,
+        'watch': int,
+        'license': str,
+        'lang': str,
+        'status': str
+    },
+    'type': 'gitee'
+}
+```
+
+#### 解释
+
+- `result`：表示Gitee仓库结果字典，类型为`dict`
+    - `title`：表示仓库标题，类型为`str`
+    - `des`：表示仓库简介，类型为`str`
+    - `url`：表示仓库链接，类型为`str`
+    - `star`：表示仓库star数，类型为`int`
+    - `fork`：表示仓库fork数，类型为`int`
+    - `watch`：表示仓库watch数，类型为`int`
+    - `license`：表示仓库版权协议，类型为`str`
+    - `lang`：表示仓库使用的编程语言，类型为`str`
+    - `status`：表示仓库的状态图表链接，类型为`str`
+
 ## 提醒
 
 !!!warning
-    不要使用爬虫搜索大量信息（如每天1000条），这样可能导致被百度封锁IP地址。使用IP池即可解决该问题
+    不要使用爬虫搜索大量信息（如每天1000条），这样可能导致被百度封锁IP地址。你也不能将本项目用于商业用途。
