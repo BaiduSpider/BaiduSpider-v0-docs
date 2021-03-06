@@ -75,6 +75,33 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), exclude=['all'
 
 如果`exclude`中包含`all`且还有其他参数，那么将按照只有`all`的方式过滤搜索结果。
 
+#### 按时间筛选
+
+```python hl_lines="8"
+from baiduspider import BaiduSpider
+from pprint import pprint
+
+spider = BaiduSpider()
+
+# 搜索网页，仅显示时间段内的搜索结果
+# 在本样例中，筛选后仅显示一周内的搜索结果
+pprint(spider.search_web(query=input('要搜索的关键词：'), time='week'))
+```
+
+此功能使用百度内置的搜索时间筛选器筛选结果，并非使用程序筛选。在这个样例中，`time`的值是`"week"`，代表筛选一周内的搜索结果。`time`的可选值如下：`["day", "week", "month", "year"]`。分别表示：一天内、一周内、一月内、一年内。除此以外，BaiduSpider还支持自定义时间段。例如：
+
+```python hl_lines="8"
+from baiduspider import BaiduSpider
+from pprint import pprint
+from datetime import datetime
+
+spider = BaiduSpider()
+
+# 在本样例中，筛选后仅显示2020.1.5 - 2020.4.9的搜索结果
+pprint(spider.search_web(query=input('要搜索的关键词：'), time=(datetime(2020, 1, 5), datetime(2020, 4, 9))))
+```
+在这个样例中，`time`的值是一个元组（`tuple`）。元组的第一个值是起始时间，第二个值是结束时间。BaiduSpider会把他们都转化成`time.time()`形式的浮点数（然后仅保留整数），所以你也可以将`datetime`替换为一个整数。
+
 ## 返回值
 
 `BaiduSpider.search_web`函数的返回类型是`dict`，大致返回模版如下：
